@@ -1,0 +1,41 @@
+body {
+  margin: 2em;
+  background: #E8E8E8;
+}
+
+img {
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  display: block;
+}
+
+.bar {
+  background: white;
+  display: flex;
+  align-items: center;
+}
+
+span {
+  line-height: 2.4;
+}
+
+button {
+  background: none;
+  border: 0;
+  color: #BDBDBD;
+  font-size: 2em;
+  margin-left: -4px;
+}
+
+button.active {
+  color: #46749A;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}
