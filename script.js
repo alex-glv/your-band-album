@@ -1,21 +1,56 @@
+"use strict";
+
+var jsonAjaxRequest = function jsonAjaxRequest(reqUrl, successFunction, sync, jsonpName) {
+    var jsonpName = jsonPname || "callback"
+    $.ajax({
+	url: reqUrl
+      , async: !sync
+      , jsonp: jsonpName
+      , dataType: "jsonp"
+      , success: successFunction
+    });
+}
+
+var getRandomWikiQuote = function() {
+    var randomId;
+    var successFunc = function(data) {
+	randomId = data.query.random[0].id
+	console.log("Random: " + randomId);
+	jsonAjaxRequest(
+	    "http://en.wikiquote.org/w/api.php?action=parse&format=json&pageid=" + randomId
+	   ,function(data) {
+	       console.log(data);
+	       var parsedText = data.result.parse.text["*"];
+	       console.log(parsedText);
+	   }
+	);
+    }
+    jsonAjaxRequest(
+	"http://en.wikiquote.org/w/api.php?action=query&format=json&list=random&rnlimit=1&rnnamespace=0"
+      , successFunc
+    )
+}
+
 var getRandomAlbum = function() {
     var selfData = {title: "TestTitle"}
-    $.getJSON("http://en.wikipedia.org/w/api.php?action=query&format=json&list=random&rnlimit=1&rnnamespace=0&callback=?",
-	      {
-		  async: false
-	      },
-	      function(data) {
-		  selfData.band = data.query.random[0].title;
-	      }
-    );
-    $.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=?",
-	      {
-		  async: false
-	      },
-	      function(data) {
-		  selfData.cover = data.items[5].media.m;
-	      }
-    );
+    $.ajax({
+	url:"http://en.wikipedia.org/w/api.php?action=query&format=json&list=random&rnlimit=1&rnnamespace=0&callback=?"
+      , dataType: "jsonp"
+      , async: false
+      , success: function(data) {
+	  selfData.band = data.query.random[0].id;
+      }
+    });
+    $.ajax({
+	url: "http://api.flickr.com/services/feeds/photos_public.gne?format=json"
+      , dataType: "jsonp"
+      , jsonp: "jsoncallback"
+      , async: false
+      , success: function(data) {
+	  selfData.cover = data.items[5].media.m;
+      }
+    });
+    getRandomWikiQuote();
     return selfData;
 }
 
