@@ -56,9 +56,10 @@ var getRandomWikiQuote = function(onDone) {
 var Album = React.createClass({
     render: function() {
 	return (
-	    <div className='album'>
-	    <img src={this.props.cover} />
-	    <span className='band'>{this.props.band} - {this.props.title}</span>
+		<div className='album'>
+		<span className='band'>{this.props.band}</span>
+		<span className='cover'><img src={this.props.cover} /></span>
+		<p className='title'>{this.props.title}</p>
 	    </div>
 	);
     }
@@ -71,13 +72,15 @@ var AlbumList = React.createClass({
 	});
 	
 	return (
+		<div>
+		<button onClick={this.props.fetchFunc}>More!</button>
 		<div className="albumsList">{albums}</div>
+		</div>
 	);
     }
 });
 
 
-var newAlbum = {};
 var albums = [];
 
 var pushAlbum = function(album) {
@@ -88,7 +91,7 @@ var pushAlbum = function(album) {
 	console.log(albums);
 
 	React.render(
-		<AlbumList>
+		<AlbumList fetchFunc={fetchAlbum}>
 		{albums}
 		</AlbumList>
 		, document.body);
@@ -96,15 +99,14 @@ var pushAlbum = function(album) {
     return album;
 };
 
-$(document).ready(function () {
+var fetchAlbum = function() {
+    var newAlbum = {};
     getRandomWikiTitle(function (band) { newAlbum.band = band; pushAlbum(newAlbum); });
     getRandomWikiQuote(function (title) { newAlbum.title = title; pushAlbum(newAlbum); });
     getRandomFlickrImage(function (cover) { newAlbum.cover = cover; pushAlbum(newAlbum); });
+};
 
+
+$(document).ready(function () {
+    fetchAlbum();
 });
-
-// var albums = [{title: "Amauta (genus)", cover: "http://farm8.staticflickr.com/7346/16224197550_1790f5249c_m.jpg", band: "Band"}];
-//  React.render(
-//  	<Album cover="http://farm8.staticflickr.com/7346/16224197550_1790f5249c_m.jpg" title="test2" band="test3" />
-//  	, document.body
-// );

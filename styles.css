@@ -1,41 +1,65 @@
 body {
-  margin: 2em;
-  background: #E8E8E8;
+    margin: 2em;
+    background: #E8E8E8;
 }
 
 img {
-  width: 100%;
-  max-width: 200px;
-  margin: 0 auto;
-  display: block;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+    display: block;
 }
 
 .bar {
-  background: white;
-  display: flex;
-  align-items: center;
+    background: white;
+    display: flex;
+    align-items: center;
 }
 
 span {
-  line-height: 2.4;
+    line-height: 2.4;
 }
 
 button {
-  background: none;
-  border: 0;
-  color: #BDBDBD;
-  font-size: 2em;
-  margin-left: -4px;
+    background: none;
+    border: 0;
+    color: #BDBDBD;
+    font-size: 2em;
+    margin-left: -4px;
 }
 
 button.active {
-  color: #46749A;
+    color: black;
 }
 
 button:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 button:focus {
-  outline: none;
+    outline: none;
+}
+
+.album {
+    width: 300px;
+    height:220px;
+    background:white;
+    font:0.8em;
+    padding:3px;
+    text-align:left;
+    float:left;
+    margin:3px;
+    border:1px solid black;
+    font-family: 'Lato', sans-serif;
+}
+
+img {
+    max-height:150px;
+}
+
+.title {
+    width:17em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
