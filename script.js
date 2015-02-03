@@ -104,22 +104,18 @@ var Album = React.createClass({
 
 var AlbumList = React.createClass({
     getInitialState: function() {
-	return { albums: [{}] }
+	return { albums: [<Album />] }
     }
     , getMore: function() {
 	var albums = this.state.albums;
-	albums.push({});
+	albums.push(<Album />);
 	this.setState({albums: albums});
     }
     , render: function() {
-	var albums = this.state.albums.map(function (album) {
-	    return <Album />;
-	});
-	
 	return (
 		<div>
 		<button onClick={this.getMore}>More!</button>
-		<div className="albumsList">{albums}</div>
+		<div className="albumsList">{this.state.albums}</div>
 		</div>
 	);
     }
